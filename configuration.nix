@@ -118,6 +118,7 @@
     #pkgs.tmux
     pkgs.wget
     pkgs.curl
+    pkgs.rsync
   ];
 
   programs.tmux = {
