@@ -115,12 +115,15 @@
     )
 
 		# Other packages
-    pkgs.tmux
+    #pkgs.tmux
     pkgs.wget
     pkgs.curl
   ];
 
-  programs.tmux.extraConfig = "set -g mouse on";
+  programs.tmux = {
+		enable = true;
+		extraConfig = "set -g mouse on";
+	};
   programs.git.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -154,7 +157,7 @@
   settings.PasswordAuthentication = false;
   settings.KbdInteractiveAuthentication = false;
   settings.PermitRootLogin = "no";
-};
+  };
 
   #Docker
   virtualisation.docker.enable = true;
