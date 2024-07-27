@@ -88,8 +88,8 @@
   # Bash init
   programs.bash.shellInit =
     ''if [[ -n "$PS1" ]] && [[ -z "$TMUX" ]] && [[ -n "$SSH_CONNECTION" ]]; then
-        /run/current-system/sw/bin/tmux attach-session -t ssh_tmux || /run/current-system/sw/bin/tmux new-session -s ssh_tmux
-      fi'';
+      /run/current-system/sw/bin/tmux attach-session -t ssh_tmux || /run/current-system/sw/bin/tmux new-session -s ssh_tmux
+    fi'';
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -98,7 +98,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     #vim
-		((vim_configurable.override {  }).customize{
+    ((vim_configurable.override {  }).customize{
       name = "vim";
       # Install plugins for example for syntax highlighting of nix files
       vimrcConfig.customRC = ''
