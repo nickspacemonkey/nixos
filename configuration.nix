@@ -105,11 +105,11 @@
         set nocompatible
         set backspace=indent,eol,start
         syntax on
-				set tabstop=2
-				set number
-				if has("autocmd")
-					au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute "normal! g`\"" | endif
-				endif
+        set tabstop=2
+        set number
+        if has("autocmd")
+          au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute "normal! g`\"" | endif
+        endif
       '';
       }
     )
