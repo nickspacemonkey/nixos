@@ -155,31 +155,28 @@
       fsType = "nfs";
   };
 
-	fileSystems."/mnt/nick" = {
+  fileSystems."/mnt/nick" = {
     device = "//nick-nas.com/nick";
     fsType = "cifs";
-		options = let
-    	automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s,user,users";
-
-      in ["${automount_opts},credentials=/home/nick/.smblogin,uid=1002,gid=1002"];
+    options = let
+      automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s,user,users";
+    in ["${automount_opts},credentials=/home/nick/.smblogin,uid=1002,gid=1002"];
   };
 
-	fileSystems."/mnt/miles" = {
+  fileSystems."/mnt/miles" = {
     device = "//nick-nas.com/miles";
     fsType = "cifs";
-		options = let
-    	automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s,user,users";
-
-      in ["${automount_opts},credentials=/home/nick/.smblogin,uid=33,gid=33"];
+    options = let
+      automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s,user,users";
+    in ["${automount_opts},credentials=/home/nick/.smblogin,uid=33,gid=33"];
   };
 
-	fileSystems."/mnt/adelaide" = {
+  fileSystems."/mnt/adelaide" = {
     device = "//nick-nas.com/adelaide";
     fsType = "cifs";
-		options = let
-    	automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s,user,users";
-
-      in ["${automount_opts},credentials=/home/nick/.smblogin,uid=33,gid=33"];
+    options = let
+      automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s,user,users";
+    in ["${automount_opts},credentials=/home/nick/.smblogin,uid=33,gid=33"];
   };
 
   # Enable cron service
