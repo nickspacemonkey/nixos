@@ -119,13 +119,13 @@
     wget
     curl
     rsync
-		cifs-utils
+    cifs-utils
   ];
 
   programs.tmux = {
-		enable = true;
-		extraConfig = "set -g mouse on";
-	};
+    enable = true;
+    extraConfig = "set -g mouse on";
+  };
   programs.git.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
