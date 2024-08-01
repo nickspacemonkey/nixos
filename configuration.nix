@@ -88,8 +88,8 @@
   # Bash init
   programs.bash.shellInit =
     ''if [[ -n "$PS1" ]] && [[ -z "$TMUX" ]] && [[ -n "$SSH_CONNECTION" ]]; then
-      /run/current-system/sw/bin/tmux attach-session -t ssh_tmux || /run/current-system/sw/bin/tmux new-session -s ssh_tmux
-    fi'';
+        /run/current-system/sw/bin/tmux attach-session -t ssh_tmux || /run/current-system/sw/bin/tmux new-session -s ssh_tmux
+      fi'';
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -98,33 +98,31 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     #vim
-    ((vim_configurable.override {  }).customize{
+		((vim_configurable.override {  }).customize{
       name = "vim";
       # Install plugins for example for syntax highlighting of nix files
       vimrcConfig.customRC = ''
         set nocompatible
         set backspace=indent,eol,start
         syntax on
-        set tabstop=2
-        set number
-        if has("autocmd")
-          au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute "normal! g`\"" | endif
-        endif
+        set expandtab
+				set tabstop=2
+        set shiftwidth=2
+				set number
+				if has("autocmd")
+					au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute "normal! g`\"" | endif
+				endif
       '';
       }
     )
 
 		# Other packages
-    #pkgs.tmux
+    pkgs.tmux
     pkgs.wget
     pkgs.curl
-    pkgs.rsync
   ];
 
-  programs.tmux = {
-		enable = true;
-		extraConfig = "set -g mouse on";
-	};
+  programs.tmux.extraConfig = "set -g mouse on";
   programs.git.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -151,14 +149,7 @@
 
   # List services that you want to enable:
   services.rpcbind.enable = true;
-  #services.openssh.enable = true;
-  services.openssh = {
-  enable = true;
-  # require public key authentication for better security
-  settings.PasswordAuthentication = false;
-  settings.KbdInteractiveAuthentication = false;
-  settings.PermitRootLogin = "no";
-  };
+  services.openssh.enable = true;
 
   #Docker
   virtualisation.docker.enable = true;
