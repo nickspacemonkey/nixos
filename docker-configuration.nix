@@ -186,8 +186,8 @@
   services.cron = {
     enable = true;
     systemCronJobs = [
-      "0 4 * * * cd /home/nick/docker && bash docker_cron.sh >/dev/null 2>&1"
-      "0 1 * * * rsync -ax /home/nick/ nick@nick-nas.com:/mnt/my-pool/backups/docker/nick --delete >/dev/null 2>&1"
+      "0 4 * * *    root  cd /home/nick/docker && bash docker_cron.sh >/dev/null 2>&1"
+      "0 1 * * *    root  rsync -ax /home/nick/ nick@nick-nas.com:/mnt/my-pool/backups/docker/nick --delete >/dev/null 2>&1"
     ];
   };
 
