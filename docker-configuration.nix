@@ -83,6 +83,7 @@
     ta="tmux attach -t";
     tn="tmux new-session";
     tl="tmux list-sessions";
+    update="sudo nixos-rebuild switch --upgrade";
   };
 
   # Bash init
