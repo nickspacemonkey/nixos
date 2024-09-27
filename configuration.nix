@@ -118,15 +118,15 @@
     )
 
 		# Other packages
-    pkgs.wget
-    pkgs.curl
+    wget
+    curl
+    git
   ];
 
   programs.tmux = {
     enable = true;
     extraConfig = "set -g mouse on";
-  }
-  programs.git.enable = true;
+  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
