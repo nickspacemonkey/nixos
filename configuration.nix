@@ -125,6 +125,7 @@
   programs.tmux = {
     enable = true;
     extraConfig = "set -g mouse on";
+  }
   programs.git.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
