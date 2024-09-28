@@ -121,6 +121,7 @@
     wget
     curl
     git
+    htop
   ];
 
   programs.tmux = {
