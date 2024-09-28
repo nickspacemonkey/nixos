@@ -17,6 +17,9 @@
   boot.kernelParams = [
     "mitigations=off"
   ];
+  boot.loader.timeout = 1;
+  boot.loader.systemd-boot.configurationLimit = 10;
+
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -129,6 +132,8 @@
     extraConfig = "set -g mouse on";
   };
 
+  zramSwap.enable = true;
+
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
@@ -144,6 +149,7 @@
     lower = "03:00";
     upper = "05:00";
   };
+  nix.gc.automatic = true;
 
 	# Mounts
 	#fileSystems."/mnt/nick" = {
