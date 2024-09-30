@@ -12,7 +12,7 @@
         bat
         git
         htop
-        cowsay
+        tmux
       ];
     };
   };
