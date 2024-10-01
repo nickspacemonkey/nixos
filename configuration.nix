@@ -78,7 +78,7 @@
 
   # Bash aliases
   programs.bash.shellAliases = {
-    ll="ls -la";
+    ll="eza -la";
     dc="sudo docker compose";
     dcup="sudo docker compose up -d --force-recreate";
     dcdown="sudo docker compose down";
@@ -87,6 +87,8 @@
     tn="tmux new-session";
     tl="tmux list-sessions";
     update="sudo nixos-rebuild switch --upgrade";
+    cat="bat -pp";
+    less="bat -p";
   };
 
   # Bash init
@@ -113,6 +115,7 @@
         set tabstop=2
         set shiftwidth=2
         set number
+        set visualbell
         if has("autocmd")
           au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute "normal! g`\"" | endif
         endif
@@ -125,6 +128,8 @@
     curl
     git
     htop
+    eza
+    bat
   ];
 
   programs.tmux = {
