@@ -165,6 +165,11 @@
   # List services that you want to enable:
   services.rpcbind.enable = true;
   services.openssh.enable = true;
+  services.openssh.settings = {
+    PasswordAuthentication = false;
+    PermitRootLogin = "no";
+    UsePAM = false;
+  };
 
   #Docker
   virtualisation.docker.enable = true;
