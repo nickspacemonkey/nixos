@@ -93,9 +93,30 @@
 
   # Bash init
   programs.bash.shellInit =
-    ''if [[ -n "$PS1" ]] && [[ -z "$TMUX" ]] && [[ -n "$SSH_CONNECTION" ]]; then
+    ''
+      if [[ -n "$PS1" ]] && [[ -z "$TMUX" ]] && [[ -n "$SSH_CONNECTION" ]]; then
         /run/current-system/sw/bin/tmux attach-session -t ssh_tmux || /run/current-system/sw/bin/tmux new-session -s ssh_tmux
-    fi'';
+      fi
+    '';
+
+  programs.bash.promptInit =
+    ''
+      if [ "$TERM" != "dumb" ] || [ -n "$INSIDE_EMACS" ]; then
+        PROMPT_COLOR="1;31m"
+        ((UID)) && PROMPT_COLOR="1;32m"
+        TIMESTAMP="\[\033[0;35m\][\$(date +%H:%M:%S)]\[\033[0m\]"
+  
+        if [ -n "$INSIDE_EMACS" ]; then
+          PS1="\n$TIMESTAMP \[\033[$PROMPT_COLOR\][\u@\h:\w]\\$\[\033[0m\] "
+        else
+          PS1="\n$TIMESTAMP \[\033[$PROMPT_COLOR\][\[\e]0;\u@\h: \w\a\]\u@\h:\w]\\$\[\033[0m\] "
+        fi
+  
+        if test "$TERM" = "xterm"; then
+          PS1="\[\033]2;\h:\u:\w\007\]$PS1"
+        fi
+      fi
+    '';
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
