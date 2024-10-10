@@ -1,4 +1,4 @@
-# Edit this configuration file to define what should be installed on
+s configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
@@ -17,6 +17,9 @@
   boot.kernelParams = [
     "mitigations=off"
   ];
+  boot.loader.timeout = 1;
+  boot.loader.systemd-boot.configurationLimit = 10;
+
   networking.hostName = "docker"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -75,7 +78,7 @@
 
   # Bash aliases
   programs.bash.shellAliases = {
-    ll="ls -la";
+    ll="eza -la";
     dc="sudo docker compose";
     dcup="sudo docker compose up -d --force-recreate";
     dcdown="sudo docker compose down";
@@ -84,6 +87,8 @@
     tn="tmux new-session";
     tl="tmux list-sessions";
     update="sudo nixos-rebuild switch --upgrade";
+    cat="bat -pp";
+    less="bat -p";
   };
 
   # Bash init
@@ -131,6 +136,7 @@
         set tabstop=2
         set shiftwidth=2
         set number
+        set visualbell
         set mouse=a
         if has("autocmd")
           au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute "normal! g`\"" | endif
@@ -139,19 +145,22 @@
       }
     )
 
-		# Other packages
-    #pkgs.tmux
+    # Other packages
     wget
     curl
-    rsync
-    cifs-utils
+    git
+    htop
+    eza
+    bat
+  rsync
   ];
 
   programs.tmux = {
     enable = true;
     extraConfig = "set -g mouse on";
   };
-  programs.git.enable = true;
+
+  zramSwap.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -168,8 +177,9 @@
     lower = "03:00";
     upper = "05:00";
   };
+  nix.gc.automatic = true;
 
-	# Mounts
+  # Mounts
   fileSystems."/mnt/media" = {
     device = "192.168.0.14:/mnt/my-pool/media";
       fsType = "nfs";
@@ -215,13 +225,11 @@
 
   # List services that you want to enable:
   services.rpcbind.enable = true;
-  #services.openssh.enable = true;
-  services.openssh = {
-  enable = true;
-  # require public key authentication for better security
-  #settings.PasswordAuthentication = false;
-  #settings.KbdInteractiveAuthentication = false;
-  settings.PermitRootLogin = "no";
+  services.openssh.enable = true;
+  services.openssh.settings = {
+    PasswordAuthentication = false;
+    PermitRootLogin = "no";
+    UsePAM = false;
   };
 
   #Docker
