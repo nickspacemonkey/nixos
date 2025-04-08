@@ -99,24 +99,16 @@
       fi
     '';
 
-  programs.bash.promptInit =
-    ''
-      if [ "$TERM" != "dumb" ] || [ -n "$INSIDE_EMACS" ]; then
-        PROMPT_COLOR="1;31m"
-        ((UID)) && PROMPT_COLOR="1;32m"
-        TIMESTAMP="\[\033[0;35m\][\$(date +%H:%M:%S)]\[\033[0m\]"
-  
-        if [ -n "$INSIDE_EMACS" ]; then
-          PS1="\n$TIMESTAMP \[\033[$PROMPT_COLOR\][\u@\h:\w]\\$\[\033[0m\] "
-        else
-          PS1="\n$TIMESTAMP \[\033[$PROMPT_COLOR\][\[\e]0;\u@\h: \w\a\]\u@\h:\w]\\$\[\033[0m\] "
-        fi
-  
-        if test "$TERM" = "xterm"; then
-          PS1="\[\033]2;\h:\u:\w\007\]$PS1"
-        fi
-      fi
-    '';
+  programs.bash.promptInit = ''
+    if [ -n "$debian_chroot" ]; then
+      CHROOT="(\$debian_chroot)"
+    else
+      CHROOT=""
+    fi
+
+    PS1='(\t) | [\[\033[01;35m\]\u\[\033[38;05;226m\]@\[\033[01;32m\]\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]]\$ '
+  '';
+
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
