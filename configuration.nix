@@ -70,7 +70,9 @@
     "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC94/ZOYKbKPes3fm+HK8YMzHHk7x4EO0f1v+I8DElUrfcPzdVljAeQCQaeM1o9hnd++6MNsMrXJZfdudS9HEGbNjfwF17PHBEOJaJm7adYo0L/Y2f2f1I39hvzHCq7fvCrziwHU9otToGSwswdVQbQKQaLCbqrPJbAzSNWbi/aE+4l1cAOBQfO0dFzBZPqGns8QmmgFp0D5iUCwo5fSf99yx8QDLo+Rv7Gq/z8um7ejMYyQSiSIPaLb3dygAKMtgKf0O2VJR36hwlx3DW791NeldG/9KUHzV/EnSXbmmwSw3TeNxjGWlitMMjXKvy8RLDXyHFiZXfd2SoshoOQv639sZZT5lKWDg83aI2x1O0gU8Wr3EZav0qvKh18PyYNhtGuL7q5WCIPHeAKeZYo07/NH079wa4dCSEENCYh78SRFCgXwfke43jFO2qQcyZUIxAFFozwm4r0W4OyO+jnSuWsrmdP6qgGmTltgG3kI/Pz8fvds+BgrUXozHeg8GxdDNs= nick@nick-nas.local"
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIORLM01n07L8u/pAlncJXSQuYpD1n2OizdJURSea9qx"
     ];
-    packages = with pkgs; [];
+    packages = with pkgs; [
+    ];
+    shell = pkgs.fish;
   };
   users.groups.nick = {};
   users.groups.nick.gid = 1002;
@@ -78,6 +80,8 @@
 
   # Bash aliases
   programs.bash.shellAliases = {
+    vi="hx";
+    vim="hx";
     ll="eza -la";
     dc="sudo docker compose";
     dcup="sudo docker compose up -d --force-recreate";
@@ -109,6 +113,8 @@
     PS1='(\t) | [\[\033[01;35m\]\u\[\033[38;05;226m\]@\[\033[01;32m\]\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]]\$ '
   '';
 
+  # Fish shell
+  programs.fish.enable = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -116,7 +122,6 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    #vim
     ((vim_configurable.override {  }).customize{
       name = "vim";
       # Install plugins for example for syntax highlighting of nix files
@@ -138,6 +143,7 @@
     )
 
 		# Other packages
+    helix
     wget
     curl
     git
